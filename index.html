@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {font-family: Tahoma; text-align:center; direction:rtl;}
+input,button{padding:10px;margin:10px;width:80%}
+.cert{border:5px solid gold;padding:20px;background:#fff}
+.name{font-size:28px;font-weight:bold;color:green}
+</style>
+</head>
+
+<body>
+
+<h3>مولد شهادة</h3>
+
+<input id="name" placeholder="ادخل الاسم">
+<button onclick="gen()">عرض</button>
+<button onclick="dl()">تحميل</button>
+
+<div id="cert" class="cert">
+<h2>شهادة تقدير</h2>
+<p>تُقدم إلى</p>
+<div class="name" id="n">{الاسم}</div>
+
+<p>تقديراً لجهودكم مع فريق غيث الإمارات التطوعي</p>
+
+<p>
+عريف أول<br>
+محمد محسن علي عوضه<br>
+رئيس الفريق
+</p>
+</div>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<script>
+function gen(){
+ document.getElementById("n").innerText =
+ document.getElementById("name").value || "{الاسم}";
+}
+
+function dl(){
+ html2canvas(document.getElementById("cert")).then(c=>{
+  let a=document.createElement("a");
+  a.download="certificate.png";
+  a.href=c.toDataURL();
+  a.click();
+ });
+}
+</script>
+
+</body>
+</html>
