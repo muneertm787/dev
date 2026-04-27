@@ -4,35 +4,29 @@ import html2canvas from "html2canvas";
 export default function Home() {
   const certRef = useRef();
   const [name, setName] = useState("");
-  const [date, setDate] = useState("");
 
   const downloadCertificate = async () => {
-    const canvas = await html2canvas(certRef.current);
+    const canvas = await html2canvas(certRef.current, {
+      useCORS: true,
+      scale: 2
+    });
+
     const link = document.createElement("a");
     link.download = `${name || "certificate"}.png`;
-    link.href = canvas.toDataURL();
+    link.href = canvas.toDataURL("image/png");
     link.click();
   };
 
   return (
-    <div style={{ textAlign: "center", padding: 20, fontFamily: "serif" }}>
-      <h2>🇦🇪 UAE Certificate Generator</h2>
+    <div style={{ textAlign: "center", padding: 20 }}>
+      <h2>🇦🇪 Proud of UAE Certificate Generator</h2>
 
       <input
         type="text"
         placeholder="Enter Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        style={{ padding: 10, width: "250px", marginBottom: 10 }}
-      />
-
-      <br />
-
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        style={{ padding: 10, width: "250px" }}
+        style={{ padding: 10, width: "260px" }}
       />
 
       <br /><br />
@@ -45,89 +39,33 @@ export default function Home() {
       <div
         ref={certRef}
         style={{
-          width: "900px",
-          height: "550px",
-          margin: "40px auto",
-          padding: "40px",
-          border: "12px solid black",
-          background: "white",
           position: "relative",
-          textAlign: "center"
+          width: "1000px",
+          height: "700px",
+          margin: "40px auto",
+          backgroundImage: "url('/certificate-template.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          borderRadius: "10px",
+          overflow: "hidden"
         }}
       >
-        {/* UAE Flag Stripe */}
-        <div style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: "30px",
-          background: "red"
-        }} />
-
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: "30px",
-          right: 0,
-          height: "10px",
-          background: "green"
-        }} />
-
-        <div style={{
-          position: "absolute",
-          bottom: 0,
-          left: "30px",
-          right: 0,
-          height: "10px",
-          background: "black"
-        }} />
-
-        <h1 style={{ marginTop: "40px" }}>
-          شهادة تقدير
-        </h1>
-
-        <h3>Certificate of Appreciation</h3>
-
-        <p style={{ marginTop: "20px" }}>
-          This certificate is proudly presented to
-        </p>
-
-        <h2 style={{ margin: "20px 0", fontSize: "32px" }}>
+        {/* Dynamic Name */}
+        <div
+          style={{
+            position: "absolute",
+            top: "48%",   // adjust this
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontSize: "42px",
+            fontWeight: "bold",
+            color: "#0a3d2e",
+            textAlign: "center",
+            width: "80%",
+            fontFamily: "serif"
+          }}
+        >
           {name || "Your Name"}
-        </h2>
-
-        <p>
-          In recognition of valuable contribution and participation in
-          volunteering activities organized by
-        </p>
-
-        <h3 style={{ marginTop: "10px" }}>
-          Ghaith Al Emarat Volunteering
-        </h3>
-
-        <p style={{ marginTop: "20px" }}>
-          Date: {date || "________"}
-        </p>
-
-        <div style={{
-          position: "absolute",
-          bottom: "40px",
-          left: "40px",
-          textAlign: "left"
-        }}>
-          <p>Chairman</p>
-          <strong>عريف أول محمد محسن علي عوضه</strong>
-        </div>
-
-        <div style={{
-          position: "absolute",
-          bottom: "40px",
-          right: "40px",
-          textAlign: "right"
-        }}>
-          <p>Organizer</p>
-          <strong>Ghaith Al Emarat</strong>
         </div>
       </div>
     </div>
